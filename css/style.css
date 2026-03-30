@@ -1,0 +1,212 @@
+:root {
+    --bg-color: #121212;
+    --text-primary: #fcfcfc;
+    --text-secondary: #a0a0a0;
+    --color-malva: #d8b4fe; 
+    --color-malva-glow: rgba(216, 180, 254, 0.4);
+    
+    --font-header: 'Sora', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+    --header-height: 85px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; cursor: none; }
+body { background-color: var(--bg-color); color: var(--text-primary); font-family: var(--font-body); overflow-x: hidden; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+/* --- CURSOR --- */
+.cursor-star {
+    position: fixed; top: 0; left: 0; font-size: 22px; color: var(--color-malva);
+    opacity: 0.3; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out, opacity 0.3s ease;
+}
+.cursor-star.active { opacity: 1; transform: translate(-50%, -50%) scale(2.5) rotate(135deg); text-shadow: 0 0 15px var(--color-malva); }
+
+/* --- NAVBAR (Corregido: Uno al lado del otro) --- */
+.header {
+    position: fixed; top: 0; width: 100%; height: var(--header-height);
+    background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(15px);
+    z-index: 1000; display: flex; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+
+.logo { 
+    color: var(--color-malva); text-decoration: none; font-family: var(--font-header);
+    font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;
+}
+.star-icon { animation: rotateStar 4s linear infinite; display: inline-block; }
+
+.nav-list { display: flex; gap: 25px; align-items: center; list-style: none; }
+
+.nav-link { 
+    color: var(--color-malva); text-decoration: none; font-family: var(--font-header);
+    font-size: 0.9rem; font-weight: 400; transition: 0.3s ease;
+}
+.nav-link:hover { opacity: 0.7; transform: translateY(-2px); }
+
+.contact-btn {
+    border: 1px solid var(--color-malva); padding: 7px 18px; border-radius: 25px;
+}
+
+/* --- RESPONSIVIDAD NAVBAR --- */
+@media (max-width: 600px) {
+    .nav-list { gap: 12px; }
+    .nav-link { font-size: 0.75rem; }
+    .contact-btn { padding: 5px 12px; }
+    .logo { font-size: 1.1rem; }
+}
+
+/* --- 1. CORRECCIÓN DE DESPLAZAMIENTO (Scroll Offset) --- */
+/* Esto hace que al hacer clic en el Navbar, el título no quede debajo del menú */
+#sobre-mi, 
+#proyectos, 
+#contacto {
+    scroll-margin-top: calc(var(--header-height) + 40px);
+}
+
+/* --- 2. ESTILOS DE CONTACTO ALINEADOS --- */
+.contact {
+    margin-bottom: 150px; /* Espacio antes del footer */
+    width: 100%;
+}
+
+.contact-content {
+    max-width: 800px; /* Igual que el ancho de "Sobre Mí" */
+}
+
+.contact-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-item {
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.contact-item:hover {
+    color: var(--color-malva);
+    transform: translateX(10px); /* Efecto lúdico lateral */
+}
+
+.contact-label {
+    color: var(--color-malva);
+    font-weight: 600;
+    margin-right: 15px;
+    min-width: 100px; /* Alinea los textos después de los dos puntos */
+}
+
+/* --- 3. RESPONSIVIDAD EXTRA PARA CONTACTO --- */
+@media (max-width: 600px) {
+    .contact-item {
+        font-size: 0.9rem;
+    }
+    .contact-label {
+        min-width: 80px;
+    }
+}
+
+
+/* --- ANIMACIONES --- */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* --- CONTENIDO --- */
+.main-content { padding-top: calc(var(--header-height) + 50px); }
+.hero { margin-bottom: 100px; }
+.hero-title { font-family: var(--font-header); font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 15px; }
+.highlight { color: var(--color-malva); text-shadow: 0 0 20px var(--color-malva-glow); }
+.hero-description { color: var(--text-secondary); max-width: 550px; font-size: 1.1rem; }
+
+.section-title { font-family: var(--font-header); font-size: 1.8rem; color: var(--color-malva); margin-bottom: 35px; }
+
+/* --- PROYECTOS (Grid de 2 en PC, 1 en Móvil) --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en PC */
+    gap: 25px;
+}
+
+@media (max-width: 850px) {
+    .projects-grid { grid-template-columns: 1fr; } /* 1 columna en móvil/tablet */
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem; border-radius: 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.project-card:hover {
+    border-color: var(--color-malva); transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 15px var(--color-malva-glow);
+}
+
+.project-tech { color: var(--color-malva); font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; }
+.project-title { font-family: var(--font-header); margin: 12px 0; font-size: 1.4rem; }
+.project-description { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 25px; }
+
+/* Botones de Proyecto (Color Malva unificado) */
+.project-links { display: flex; gap: 20px; }
+.project-btn-link {
+    color: var(--color-malva); text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    transition: 0.3s; border-bottom: 1px solid transparent;
+}
+.project-btn-link:hover { border-bottom-color: var(--color-malva); opacity: 0.8; }
+
+/* KEYFRAMES */
+@keyframes rotateStar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.footer { padding: 60px 0; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* --- ESTILOS DE CONTACTO --- */
+.contact {
+    margin-bottom: 120px;
+    text-align: left;
+}
+
+.contact-text {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    transition: var(--transition);
+    display: block;
+    width: fit-content;
+}
+
+.contact-item:hover {
+    color: var(--color-malva);
+    transform: translateX(10px); /* Efecto lúdico al pasar el mouse */
+}
+
+.contact-label {
+    color: var(--color-malva);
+    font-weight: 600;
+    margin-right: 10px;
+}
